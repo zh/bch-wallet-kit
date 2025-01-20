@@ -73,3 +73,5 @@ export default App;
 ```bash
 npm run dev
 ```
+
+See [GH example directory](https://github.com/zh/bch-wallet-kit/tree/main/examples) for more examples.

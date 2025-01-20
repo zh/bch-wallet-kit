@@ -1,14 +1,14 @@
 // src/components/Mnemonic.js
 import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useAtom } from 'jotai';
 import { mnemonicAtom, walletConnectedAtom } from '../atoms';
 import { ConfirmToast } from 'react-confirm-toast';
 import { toast } from 'react-toastify';
 import { generateMnemonic, validateMnemonic } from '@scure/bip39';
 import { wordlist } from '@scure/bip39/wordlists/english';
-import './mnemonic.css';
 
-const Mnemonic = () => {
+const Mnemonic = ({ showSave = true, showGenerate = true }) => {
   const [mnemonic, setMnemonic] = useAtom(mnemonicAtom);
   const [walletConnected] = useAtom(walletConnectedAtom);
   const [showConfirmToast, setShowConfirmToast] = useState(false);
@@ -61,6 +61,7 @@ const Mnemonic = () => {
           className="mnemonic-input"
           disabled={walletConnected} // Disable input when wallet is connected
         />
+        {showGenerate && (
         <button
           onClick={handleGenerate}
           className="mnemonic-generate-button"
@@ -68,7 +69,9 @@ const Mnemonic = () => {
         >
           Generate
         </button>
+        )}
       </div>
+      {showSave && (
       <div className="mnemonic-actions">
         <button
           onClick={handleSave}
@@ -94,9 +97,16 @@ const Mnemonic = () => {
           />
         )}
       </div>
+      )}
     </fieldset>
     </div>
   );
+};
+
+// PropTypes validation
+Mnemonic.propTypes = {
+  showSave: PropTypes.bool, // Whether to display 'Save', 'Reset' buttons
+  showGenerate: PropTypes.bool, // Whether to display 'Generate' button
 };
 
 export default Mnemonic;

@@ -1,0 +1,25 @@
+/* App.css */
+
+.app-container {
+  margin: 0 auto;
+  padding: 20px;
+  max-width: 800px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.app-title {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Responsive styles */
+@media (max-width: 480px) {
+  .app-container {
+    padding: 10px;
+  }
+}
+
