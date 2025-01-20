@@ -1,0 +1,31 @@
+.mnemonic-container {
+}
+
+.mnemonic-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Add spacing between the input and Generate button */
+}
+
+.mnemonic-input {
+  flex: 1;
+}
+
+.mnemonic-generate-button {
+  background-color: blue;
+}
+
+.mnemonic-actions {
+  display: flex;
+  justify-content: center; /* Center align the buttons */
+  gap: 15px; /* Add spacing between Save and Reset buttons */
+  margin-top: 5px;
+}
+
+.mnemonic-save-button {
+  background-color: green;
+}
+
+.mnemonic-reset-button {
+  background-color: red;
+}

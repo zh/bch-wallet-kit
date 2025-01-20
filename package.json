@@ -1,0 +1,57 @@
+{
+  "name": "bch-wallet-kit",
+  "version": "1.0.7",
+  "description": "A React component library for BCH Wallets",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "rollup -c && cat src/App.css src/components/*.css > dist/BchWalletKit.css",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "@scure/bip39": "^1.5.4",
+    "@yudiel/react-qr-scanner": "^2.1.0",
+    "bch-token-sweep": "^2.2.1",
+    "jotai": "^2.11.0",
+    "qrcode.react": "^4.2.0",
+    "react": "^18.3.1",
+    "react-confirm-toast": "^2.0.2",
+    "react-dom": "^18.3.1",
+    "react-toastify": "^11.0.3"
+  },
+  "devDependencies": {
+    "jotai": "^2.11.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "@babel/core": "^7.26.0",
+    "@babel/plugin-transform-runtime": "^7.25.9",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.26.3",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "postcss": "^8.5.1",
+    "rollup": "^4.31.0",
+    "rollup-plugin-postcss": "^4.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zh/bch-wallet-kit"
+  },
+  "keywords": [
+    "react",
+    "bch",
+    "wallet",
+    "components"
+  ],
+  "author": "Stoyan Zhekov <zh@zhware.net>",
+  "license": "MIT"
+}

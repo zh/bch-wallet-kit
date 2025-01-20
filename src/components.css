@@ -1,0 +1,180 @@
+.address-container {
+  text-align: center; /* Center child elements, including QR code */
+}
+
+/* Default to long format for PC browsers */
+.wallet-address-long {
+  display: block;
+}
+
+.wallet-address-short {
+  display: none;
+}
+
+/* Switch to short format for mobile devices */
+@media (max-width: 600px) {
+  .wallet-address-long {
+    display: none;
+  }
+
+  .wallet-address-short {
+    display: block;
+  }
+}
+
+.qr-code-container {
+  display: inline-block; /* Ensure it doesn't span the full width */
+  cursor: pointer;
+}
+
+.qr-code-instruction {
+  font-size: 12px;
+  color: #888;
+  margin-top: 5px;
+}
+
+.qr-code-container:hover {
+  opacity: 0.8;
+}
+.balance-container {
+  text-align: center;
+}
+
+.balance {
+  margin-bottom: 5px;
+}
+.mnemonic-container {
+}
+
+.mnemonic-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Add spacing between the input and Generate button */
+}
+
+.mnemonic-input {
+  flex: 1;
+}
+
+.mnemonic-generate-button {
+  background-color: blue;
+}
+
+.mnemonic-actions {
+  display: flex;
+  justify-content: center; /* Center align the buttons */
+  gap: 15px; /* Add spacing between Save and Reset buttons */
+  margin-top: 5px;
+}
+
+.mnemonic-save-button {
+  background-color: green;
+}
+
+.mnemonic-reset-button {
+  background-color: red;
+}
+.options-container {
+}
+
+.options-select {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.options-select:disabled {
+  background-color: #f5f5f5;
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.sendbch-container {
+}
+
+.send-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+}
+
+.close-scanner-button {
+  background-color: blue;
+}
+
+.small.max-balance-info {
+  margin-top: 5px;
+  font-size: 12px;
+  color: #888; /* Subtle color for small text */
+}
+
+.send-button {
+  background-color: green;
+  margin: 0 auto; /* Center the button */
+  display: block; /* Ensure the button behaves as a block-level element */
+}
+.sweeper-container {
+}
+
+.sweep-button {
+  background-color: blue;
+}
+.wallet-container {
+  margin: 10px; /* Add space inside the border */
+  padding-left: 15px; /* Add some space on the left */
+  font-size: 14px;
+}
+
+.wallet-button {
+  display: block;
+  margin: 10px auto; /* Center buttons */
+  font-size: 16px;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.wallet-button.connect {
+  background-color: blue;
+}
+
+.wallet-button.connect:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+.wallet-button.disconnect {
+  background-color: red;
+}
+
+.wallet-button.disconnect:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+.wallet-info {
+  margin-top: 15px;
+  color: #333;
+}
+
+.wallet-info p {
+  margin: 5px 0;
+}
+
+.wallet-info strong {
+  color: #000;
+}
+
+.toggle-details-button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: blue;
+}
+.walletdetails-container {
+}
+
+.walletdetails-info p {
+  margin: 10px 0;
+  font-size: 14px;
+}

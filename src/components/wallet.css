@@ -1,0 +1,50 @@
+.wallet-container {
+  margin: 10px; /* Add space inside the border */
+  padding-left: 15px; /* Add some space on the left */
+  font-size: 14px;
+}
+
+.wallet-button {
+  display: block;
+  margin: 10px auto; /* Center buttons */
+  font-size: 16px;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.wallet-button.connect {
+  background-color: blue;
+}
+
+.wallet-button.connect:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+.wallet-button.disconnect {
+  background-color: red;
+}
+
+.wallet-button.disconnect:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+.wallet-info {
+  margin-top: 15px;
+  color: #333;
+}
+
+.wallet-info p {
+  margin: 5px 0;
+}
+
+.wallet-info strong {
+  color: #000;
+}
+
+.toggle-details-button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: blue;
+}

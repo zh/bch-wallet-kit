@@ -1,0 +1,38 @@
+.address-container {
+  text-align: center; /* Center child elements, including QR code */
+}
+
+/* Default to long format for PC browsers */
+.wallet-address-long {
+  display: block;
+}
+
+.wallet-address-short {
+  display: none;
+}
+
+/* Switch to short format for mobile devices */
+@media (max-width: 600px) {
+  .wallet-address-long {
+    display: none;
+  }
+
+  .wallet-address-short {
+    display: block;
+  }
+}
+
+.qr-code-container {
+  display: inline-block; /* Ensure it doesn't span the full width */
+  cursor: pointer;
+}
+
+.qr-code-instruction {
+  font-size: 12px;
+  color: #888;
+  margin-top: 5px;
+}
+
+.qr-code-container:hover {
+  opacity: 0.8;
+}
