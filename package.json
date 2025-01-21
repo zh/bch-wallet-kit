@@ -1,6 +1,6 @@
 {
   "name": "bch-wallet-kit",
-  "version": "1.0.8",
+  "version": "1.0.10",
   "description": "A React component library for BCH Wallets",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -11,7 +11,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "rollup -c && cat src/App.css src/components/*.css > dist/BchWalletKit.css",
+    "build": "rollup -c && cat src/common.css src/components/*.css > dist/BchWalletKit.css",
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {

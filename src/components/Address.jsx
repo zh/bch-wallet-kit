@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { QRCodeSVG } from 'qrcode.react';
 import { toast } from 'react-toastify';
-import './address.css';
 
 const Address = ({ addressFormat = 'long', address, showQR = true }) => {
   const shortAddress = `${address.split(':')[1].substr(0, 4)}...${address.split(':')[1].substr(-4)}`;

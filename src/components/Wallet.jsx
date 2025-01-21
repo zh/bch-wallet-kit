@@ -1,11 +1,10 @@
-// src/components/Wallet.js
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useAtom } from 'jotai';
 import { toast } from 'react-toastify';
 import {
   balanceAtom,
-  sendingAtom,
-  sweepingAtom,
+  busyAtom,
   walletAtom,
   mnemonicAtom,
   optionsAtom
@@ -18,18 +17,15 @@ import {
   Sweeper,
   WalletDetails
 } from '../components';
-import './wallet.css';
 
-const Wallet = () => {
+const Wallet = ({ showOptimize = false }) => {
   const { connectWallet, disconnectWallet, walletConnected } = useConnectWallet();
   const [wallet] = useAtom(walletAtom); // Ensure walletAtom is used here
   const [,setBalance] = useAtom(balanceAtom);
   const [mnemonic] = useAtom(mnemonicAtom);
   const [options] = useAtom(optionsAtom);
-  const [sending] = useAtom(sendingAtom);
-  const [sweeping] = useAtom(sweepingAtom);
+  const [busy, setBusy] = useAtom(busyAtom);
   const [showDetails, setShowDetails] = useState(false);
-
 
   // Enable connect button only if mnemonic is not empty and an option is selected
   const isConnectEnabled = mnemonic.trim() && options.restURL;
@@ -49,6 +45,29 @@ const Wallet = () => {
     toast.info('Wallet disconnected!');
   };
 
+  const handleOptimize = async () => {
+    if (!wallet) return;
+
+    try {
+      setBusy(true)
+      await wallet.optimize();
+      const bchUtxos = wallet.utxos.utxoStore.bchUtxos
+      const utxoCount = bchUtxos.length;
+      console.log(`UTXO count: ${utxoCount}`);
+      if (utxoCount > 10) {
+        console.log('Still has more than 10 UTXOs.');
+        toast.warn('Still has more than 10 UTXOs.');
+      } else {
+        console.log('Wallet optimized!');
+        toast.success('Wallet optimized!');
+      }
+    } catch (error) {
+      toast.error(`Failed to optimize wallet: ${error}`);
+    } finally {
+      setBusy(false)
+    }
+  }
+
   return (
     <div className="wallet-container">
       {walletConnected ? (
@@ -65,13 +84,22 @@ const Wallet = () => {
               {showDetails ? 'Less Info' : 'More Info'}
             </button>
             {showDetails && <WalletDetails />}
+            <div className="form-input-group">
             <button
-              disabled={sending || sweeping}
+              disabled={busy}
               onClick={handleDisconnect}
               className="wallet-button disconnect"
             >
               Disconnect
             </button>
+            {showOptimize && <button
+              disabled={busy}
+              onClick={() => handleOptimize()}
+              className="wallet-button optimize"
+            >
+              Optimize
+            </button>}
+            </div>
           </div>
         </>
       ) : (
@@ -85,6 +113,10 @@ const Wallet = () => {
       )}
     </div>
   );
+};
+
+Wallet.propTypes = {
+  showOptimize: PropTypes.bool, // Whether to display 'Optimize' button
 };
 
 export default Wallet;

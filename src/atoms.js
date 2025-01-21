@@ -15,8 +15,7 @@ export const balanceAtom = atom(0); // Default balance is 0 (in BCH)
 export const balanceRefreshTriggerAtom = atom(null, (get, set) => {
   set(balanceAtom, get(balanceAtom)); // Trigger a refresh
 });
-export const sendingAtom = atom(false); // sending in progress
-export const sweepingAtom = atom(false); // sweeping in progress
+export const busyAtom = atom(false);
 
 // Atoms for script loading state
 export const scriptLoadedAtom = atom(false);

@@ -1,24 +1,21 @@
 // src/components/SendBCH.js
 import { useState } from 'react';
 import { useAtom } from 'jotai';
+import { toast } from 'react-toastify';
 import {
-  sendingAtom,
-  sweepingAtom,
+  busyAtom,
   balanceAtom,
   walletAtom,
   walletConnectedAtom
 } from '../atoms';
 import QrCodeScanner from './QrCodeScanner';
-import './sendbch.css';
-import { toast } from 'react-toastify';
 
 const SendBCH = () => {
   const [wallet] = useAtom(walletAtom);
   const [walletConnected] = useAtom(walletConnectedAtom);
   const [balance] = useAtom(balanceAtom);
   const isValidBalance = balance !== null && typeof balance === 'number' && balance > 0;
-  const [sending, setSending] = useAtom(sendingAtom);
-  const [sweeping] = useAtom(sweepingAtom);
+  const [busy, setBusy] = useAtom(busyAtom);
 
   const [recipient, setRecipient] = useState('');
   const [amount, setAmount] = useState('');
@@ -79,7 +76,7 @@ const SendBCH = () => {
       }
       console.log(`Sending ${sats} sats to ${bchAddr}`);
 
-      setSending(true);
+      setBusy(true);
       console.log('Updating UTXO...');
       await wallet.getUtxos();
 
@@ -104,7 +101,7 @@ const SendBCH = () => {
       console.error(error.message || 'An unexpected error occurred.');
       toast.error(`BCH send failed: ${error.message}`);
     } finally {
-      setSending(false);
+      setBusy(false);
     }
   };
 
@@ -120,12 +117,12 @@ const SendBCH = () => {
             type="text"
             value={recipient}
             onChange={(e) => setRecipient(e.target.value)}
-            disabled={sending}
+            disabled={busy}
             className="form-input"
             placeholder="Enter BCH address"
           />
           <button
-            disabled={sending || sweeping}
+            disabled={busy}
             onClick={() => setShowScanner(true)}
             className="scan-button"
           >
@@ -140,24 +137,23 @@ const SendBCH = () => {
           type="number"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
-          disabled={sending}
+          disabled={busy}
           className="form-input"
           placeholder="Enter amount in BCH"
         />
         <small className="max-balance-info">Max: {balance} BCH</small>
-        {sending && <small className="max-balance-info">sending {amount} BCH...</small>}
        </div>
        <button
         onClick={handleSend}
         className="send-button"
-        disabled={sending || sweeping || !amount || !recipient.trim() || !walletConnected}
+        disabled={busy || !amount || !recipient.trim() || !walletConnected}
        >
         Send
        </button>
        {showScanner && (
          <div>
            <button
-              disabled={sending || sweeping}
+              disabled={busy}
               className="close-scanner-button"
               onClick={() => setShowScanner(false)}
            >

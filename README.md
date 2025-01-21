@@ -42,7 +42,6 @@ import { useAtom } from 'jotai';
 import { walletConnectedAtom } from 'bch-wallet-kit';
 import { LoadScript, Mnemonic, Options, Wallet } from 'bch-wallet-kit';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import 'bch-wallet-kit/dist/BchWalletKit.css';
 import './App.css';
 

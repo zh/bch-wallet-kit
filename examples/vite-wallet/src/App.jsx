@@ -3,7 +3,6 @@ import { walletConnectedAtom } from 'bch-wallet-kit';
 import { LoadScript, Mnemonic, Options, Wallet } from 'bch-wallet-kit';
 import 'bch-wallet-kit/dist/BchWalletKit.css';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import './confirm.css';
 import './App.css';
 
@@ -20,7 +19,7 @@ const App = () => {
         <Options />
        </>
       )}
-       <Wallet />
+       <Wallet showOptimize={true} />
        <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );

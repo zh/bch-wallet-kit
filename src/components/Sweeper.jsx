@@ -3,15 +3,13 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useAtom } from 'jotai';
 import Sweep from 'bch-token-sweep';
-import { sweepingAtom, sendingAtom, walletAtom, walletConnectedAtom } from '../atoms';
+import { busyAtom, walletAtom, walletConnectedAtom } from '../atoms';
 import QrCodeScanner from './QrCodeScanner';
-import './sweeper.css';
 
 const Sweeper = () => {
   const [wallet] = useAtom(walletAtom);
   const [walletConnected] = useAtom(walletConnectedAtom);
-  const [sending] = useAtom(sendingAtom);
-  const [sweeping, setSweeping] = useAtom(sweepingAtom);
+  const [busy, setBusy] = useAtom(busyAtom);
   const [sweepKey, setSweepKey] = useState('');
   const [showScanner, setShowScanner] = useState(false);
 
@@ -61,7 +59,7 @@ const Sweeper = () => {
       const sweeper = new Sweep(sweepKey, privateKey, wallet);
       if (!sweeper) throw new Error('Sweep library is invalid.');
 
-      setSweeping(true);
+      setBusy(true);
       await sweeper.populateObjectFromNetwork();
       // Constructing the sweep transaction
       const transactionHex = await sweeper.sweepTo(slpAddress);
@@ -76,7 +74,7 @@ const Sweeper = () => {
       console.error('Error sweeping wallet:', error);
       toast.error('Failed to sweep wallet. Please check the private key and try again.');
     } finally {
-      setSweeping(false);
+      setBusy(false);
       setSweepKey(''); // Reset private key field
     }
   };
@@ -92,13 +90,13 @@ const Sweeper = () => {
             type="text"
             value={sweepKey}
             onChange={(e) => setSweepKey(e.target.value)}
-            disabled={sending || sweeping}
+            disabled={busy}
             className="form-input"
             placeholder="Enter private key (WIF format)"
           />
           <button
             onClick={() => setShowScanner(true)}
-            disabled={sending || sweeping}
+            disabled={busy}
             className="scan-button"
           >
             Scan QR
@@ -106,7 +104,7 @@ const Sweeper = () => {
           <button
             onClick={handleSweep}
             className="sweep-button"
-            disabled={!walletConnected || sending || sweeping || !validWIF(sweepKey)}
+            disabled={!walletConnected || busy || !validWIF(sweepKey)}
           >
             Sweep
           </button>
@@ -114,7 +112,7 @@ const Sweeper = () => {
         {showScanner && (
          <div>
            <button
-              disabled={sending || sweeping}
+              disabled={busy}
               className="close-scanner-button"
               onClick={() => setShowScanner(false)}
            >

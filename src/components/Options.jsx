@@ -1,8 +1,6 @@
 // src/components/Options.js
-import React from 'react';
 import { useAtom } from 'jotai';
 import { optionsAtom, walletAtom, walletConnectedAtom } from '../atoms';
-import './options.css';
 
 const Options = () => {
   const [options, setOptions] = useAtom(optionsAtom);

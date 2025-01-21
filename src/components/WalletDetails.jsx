@@ -1,7 +1,6 @@
 // src/components/WalletDetails.js
 import { useAtom } from 'jotai';
 import { walletAtom, walletConnectedAtom } from '../atoms';
-import './walletdetails.css';
 
 const WalletDetails = () => {
   const [wallet] = useAtom(walletAtom);

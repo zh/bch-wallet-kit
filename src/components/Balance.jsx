@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 import { useAtom } from 'jotai';
 import { walletConnectedAtom } from '../atoms';
 import { useBalance, useBchPrice } from '../hooks';
-import './balance.css';
 
 const Balance = () => {
   const [walletConnected] = useAtom(walletConnectedAtom);

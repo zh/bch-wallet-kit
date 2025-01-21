@@ -6,7 +6,7 @@
 
 .wallet-button {
   display: block;
-  margin: 10px auto; /* Center buttons */
+  margin: 10px;
   font-size: 16px;
   color: white;
   transition: background-color 0.3s;
@@ -14,6 +14,7 @@
 
 .wallet-button.connect {
   background-color: blue;
+  margin: 10px auto;
 }
 
 .wallet-button.connect:disabled {
@@ -26,6 +27,15 @@
 }
 
 .wallet-button.disconnect:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+.wallet-button.optimize {
+  background-color: orange;
+}
+
+.wallet-button.optimize:disabled {
   background-color: gray;
   cursor: not-allowed;
 }
