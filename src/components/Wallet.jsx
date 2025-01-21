@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useAtom } from 'jotai';
-import { toast } from 'react-toastify';
+import { useAtom, useSetAtom } from 'jotai';
 import {
   balanceAtom,
   busyAtom,
   walletAtom,
   mnemonicAtom,
-  optionsAtom
+  optionsAtom,
+  notificationAtom,
 } from '../atoms';
 import { useConnectWallet } from '../hooks';
 import {
@@ -25,24 +25,29 @@ const Wallet = ({ showOptimize = false }) => {
   const [mnemonic] = useAtom(mnemonicAtom);
   const [options] = useAtom(optionsAtom);
   const [busy, setBusy] = useAtom(busyAtom);
+  const setNotification = useSetAtom(notificationAtom);
   const [showDetails, setShowDetails] = useState(false);
+  const [connecting, setConnecting] = useState(false);
 
   // Enable connect button only if mnemonic is not empty and an option is selected
   const isConnectEnabled = mnemonic.trim() && options.restURL;
 
   const handleConnect = async () => {
     try {
+      setConnecting(true);
       await connectWallet();
-      toast.success('Wallet connected!');
+      setNotification({ type: 'success', message: 'Wallet connected!'});
     } catch (error) {
-      toast.error(`Failed to connect wallet: ${error}`);
+      setNotification({ type: 'error', message: `Failed to connect wallet: ${error}`});
+    } finally {
+      setConnecting(false);
     }
   };
 
   const handleDisconnect = () => {
     disconnectWallet();
     setBalance(0);
-    toast.info('Wallet disconnected!');
+    setNotification({ type: 'success', message: 'Wallet disconnected!'});
   };
 
   const handleOptimize = async () => {
@@ -55,14 +60,12 @@ const Wallet = ({ showOptimize = false }) => {
       const utxoCount = bchUtxos.length;
       console.log(`UTXO count: ${utxoCount}`);
       if (utxoCount > 10) {
-        console.log('Still has more than 10 UTXOs.');
-        toast.warn('Still has more than 10 UTXOs.');
+        setNotification({ type: 'warning', message: 'Still has more than 10 UTXOs.'});
       } else {
-        console.log('Wallet optimized!');
-        toast.success('Wallet optimized!');
+        setNotification({ type: 'success', message: 'Wallet optimized!'});
       }
     } catch (error) {
-      toast.error(`Failed to optimize wallet: ${error}`);
+      setNotification({ type: 'error', message: `Failed to optimize wallet: ${error}`});
     } finally {
       setBusy(false)
     }
@@ -103,13 +106,16 @@ const Wallet = ({ showOptimize = false }) => {
           </div>
         </>
       ) : (
+        <div className="wallet-info">
+        {connecting && <small className="connecting-info">connecting...</small>}
         <button
           onClick={handleConnect}
           className="wallet-button connect"
-          disabled={!connectWallet || !isConnectEnabled}
+          disabled={connecting || !connectWallet || !isConnectEnabled}
         >
           Connect
         </button>
+        </div>
       )}
     </div>
   );

@@ -1,18 +1,20 @@
 import PropTypes from 'prop-types';
+import { useSetAtom } from 'jotai';
 import { QRCodeSVG } from 'qrcode.react';
-import { toast } from 'react-toastify';
+import { notificationAtom } from '../atoms';
 
 const Address = ({ addressFormat = 'long', address, showQR = true }) => {
+  const setNotification = useSetAtom(notificationAtom);
   const shortAddress = `${address.split(':')[1].substr(0, 4)}...${address.split(':')[1].substr(-4)}`;
 
   const handleCopyToClipboard = () => {
     navigator.clipboard.writeText(address).then(
       () => {
-        toast.success('Address copied to clipboard!');
+        setNotification({ type: 'success', message: 'Address copied to clipboard!' });
       },
       (err) => {
         console.error('Failed to copy address: ', err);
-        toast.error('Failed to copy address.');
+        setNotification({ type: 'error', message: 'Failed to copy address.' });
       }
     );
   };
@@ -28,7 +30,7 @@ const Address = ({ addressFormat = 'long', address, showQR = true }) => {
         </div>
       )}
       <p className="wallet-address wallet-address-long">
-        <strong>Address:</strong> {address}
+        <strong>Address:</strong> {addressFormat === 'short' ? address : shortAddress}
       </p>
       <p className="wallet-address wallet-address-short">
         <strong>Address:</strong> {shortAddress}

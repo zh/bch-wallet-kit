@@ -1,8 +1,8 @@
 // src/components/SendBCH.js
 import { useState } from 'react';
-import { useAtom } from 'jotai';
-import { toast } from 'react-toastify';
+import { useAtom, useSetAtom } from 'jotai';
 import {
+  notificationAtom,
   busyAtom,
   balanceAtom,
   walletAtom,
@@ -14,6 +14,7 @@ const SendBCH = () => {
   const [wallet] = useAtom(walletAtom);
   const [walletConnected] = useAtom(walletConnectedAtom);
   const [balance] = useAtom(balanceAtom);
+  const setNotification = useSetAtom(notificationAtom);
   const isValidBalance = balance !== null && typeof balance === 'number' && balance > 0;
   const [busy, setBusy] = useAtom(busyAtom);
 
@@ -28,7 +29,7 @@ const SendBCH = () => {
 
   const handleAddressDetected = (scannedData) => {
     if (!walletConnected) {
-      toast.error('Wallet is not connected.');
+      setNotification({ type: 'error', message: 'Wallet is not connected.' });
       return;
     }
 
@@ -45,17 +46,17 @@ const SendBCH = () => {
 
   const handleSend = async () => {
     if (!walletConnected) {
-      toast.error('Wallet is not connected.');
+      setNotification({ type: 'error', message: 'Wallet is not connected.' });
       return;
     }
 
     if (!recipient.trim()) {
-      toast.error('Recipient address cannot be empty.');
+      setNotification({ type: 'error', message: 'Recipient address cannot be empty.' });
       return;
     }
 
     if (!amount || isNaN(amount) || Number(amount) <= 0) {
-      toast.error('Amount must be a positive number.');
+      setNotification({ type: 'error', message: 'Amount must be a positive number.' });
       return;
     }
 
@@ -96,10 +97,9 @@ const SendBCH = () => {
       console.log('Updating balance...');
       setAmount('');
       setRecipient('');
-      toast.success(`${amount} BCH sent.`);
+      setNotification({ type: 'success', message: `${amount} BCH sent.` });
     } catch (error) {
-      console.error(error.message || 'An unexpected error occurred.');
-      toast.error(`BCH send failed: ${error.message}`);
+      setNotification({ type: 'error', message: `BCH send failed: ${error.message}` });
     } finally {
       setBusy(false);
     }

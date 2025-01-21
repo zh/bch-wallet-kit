@@ -16,6 +16,7 @@ export const balanceRefreshTriggerAtom = atom(null, (get, set) => {
   set(balanceAtom, get(balanceAtom)); // Trigger a refresh
 });
 export const busyAtom = atom(false);
+export const notificationAtom = atom(null);
 
 // Atoms for script loading state
 export const scriptLoadedAtom = atom(false);

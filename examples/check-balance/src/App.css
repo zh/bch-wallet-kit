@@ -16,6 +16,10 @@
   margin-bottom: 20px;
 }
 
+.wallet-button.disconnect {
+  margin: 10px auto; /* center the button */
+}
+
 /* Responsive styles */
 @media (max-width: 480px) {
   .app-container {

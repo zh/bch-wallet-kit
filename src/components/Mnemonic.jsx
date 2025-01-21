@@ -1,17 +1,14 @@
-// src/components/Mnemonic.js
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useAtom } from 'jotai';
-import { mnemonicAtom, walletConnectedAtom } from '../atoms';
-import { ConfirmToast } from 'react-confirm-toast';
-import { toast } from 'react-toastify';
+import { useAtom, useSetAtom } from 'jotai';
+import { notificationAtom, mnemonicAtom, walletConnectedAtom } from '../atoms';
 import { generateMnemonic, validateMnemonic } from '@scure/bip39';
 import { wordlist } from '@scure/bip39/wordlists/english';
 
 const Mnemonic = ({ showSave = true, showGenerate = true }) => {
   const [mnemonic, setMnemonic] = useAtom(mnemonicAtom);
   const [walletConnected] = useAtom(walletConnectedAtom);
-  const [showConfirmToast, setShowConfirmToast] = useState(false);
+  const setNotification = useSetAtom(notificationAtom);
 
   // Load mnemonic from localStorage on component mount
   useEffect(() => {
@@ -24,28 +21,31 @@ const Mnemonic = ({ showSave = true, showGenerate = true }) => {
   const handleGenerate = () => {
     const newMnemonic = generateMnemonic(wordlist);
     setMnemonic(newMnemonic);
-    toast.info('New mnemonic generated.');
+    setNotification({ type: 'success', message: 'New mnemonic generated.' });
   };
 
   const handleSave = () => {
     if (!mnemonic.trim()) {
-      toast.error('Mnemonic cannot be empty.');
+      setNotification({ type: 'error', message: 'Mnemonic cannot be empty.' });
       return;
     }
 
     if (!validateMnemonic(mnemonic, wordlist)) {
-      toast.error('Invalid mnemonic format.');
+      setNotification({ type: 'error', message: 'Invalid mnemonic format.'});
       return;
     }
 
     localStorage.setItem('mnemonic', mnemonic);
-    toast.success('Mnemonic saved successfully.');
+    setNotification({ type: 'success', message: 'Mnemonic saved successfully.'});
   };
 
   const handleReset = () => {
-    localStorage.removeItem('mnemonic');
-    setMnemonic('');
-    toast.success('Mnemonic reset successfully.');
+    const confirmed = window.confirm('Are you sure you want to reset the wallet?');
+    if (confirmed) {
+      localStorage.removeItem('mnemonic');
+      setMnemonic('');
+      setNotification({ type: 'success', message: 'Mnemonic reset successfully.'});
+    }
   };
 
   return (
@@ -81,21 +81,12 @@ const Mnemonic = ({ showSave = true, showGenerate = true }) => {
           Save
         </button>
         <button
-          onClick={() => setShowConfirmToast(true)}
+          onClick={handleReset}
           className="mnemonic-reset-button"
           disabled={walletConnected} // Disable reset when wallet is connected
         >
           Reset
         </button>
-        {showConfirmToast && (
-          <ConfirmToast
-            asModal={true}
-            toastText="Are you sure? This action cannot be undone."
-            customFunction={handleReset}
-            showConfirmToast={showConfirmToast}
-            setShowConfirmToast={setShowConfirmToast}
-          />
-        )}
       </div>
       )}
     </fieldset>

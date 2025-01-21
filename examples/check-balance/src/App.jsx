@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import { useAtom } from 'jotai';
 import { useConnectWallet, useBalance } from 'bch-wallet-kit';
 import { mnemonicAtom, optionsAtom, walletAtom } from 'bch-wallet-kit';
-import { LoadScript } from 'bch-wallet-kit';
+import { Notify, LoadScript } from 'bch-wallet-kit';
 import 'bch-wallet-kit/dist/BchWalletKit.css';
 import './App.css';
 
@@ -11,14 +12,18 @@ const App = () => {
   const [wallet] = useAtom(walletAtom);
   const [mnemonic, setMnemonic] = useAtom(mnemonicAtom);
   const [, setOptions] = useAtom(optionsAtom);
+  const [connect, setConnect] = useState(false);
 
   const handleConnect = async () => {
     try {
+      setConnect(true)
       const url = "https://free-bch.fullstack.cash";
       setOptions((prevOptions) => ({ ...prevOptions, restURL: url }));
       await connectWallet();
     } catch (err) {
       console.log(`Failed to connect wallet: ${err}`);
+    } finally {
+      setConnect(false)
     }
   };
 
@@ -30,6 +35,7 @@ const App = () => {
     <div className="app-container">
       <LoadScript scriptSrc="/minimal-slp-wallet.min.js" />
       <div className="app-title">Check Wallet Balance</div>
+      <Notify />
       <div className="mnemonic-input-wrapper">
         <label
           htmlFor="mnemonic-input"
@@ -48,13 +54,16 @@ const App = () => {
         </div>
       <div className="container wallet-container">
         {!walletConnected ? (
-          <button
-            onClick={handleConnect}
-            className="wallet-button connect"
-            disabled={!mnemonic.trim()}
-          >
-            Check
-          </button>
+          <>
+            {connect && <small className="connecting-info">connecting...</small>}
+            <button
+              onClick={handleConnect}
+              className="wallet-button connect"
+              disabled={connect || !mnemonic.trim()}
+            >
+              Check
+            </button>
+          </>
         ) : (
           <>
           <div className="container balance-container">

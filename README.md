@@ -42,8 +42,7 @@ Inside *examples/* directory you can just run `npm run script` for this task.
 ```js
 import { useAtom } from 'jotai';
 import { walletConnectedAtom } from 'bch-wallet-kit';
-import { LoadScript, Mnemonic, Options, Wallet } from 'bch-wallet-kit';
-import { ToastContainer } from 'react-toastify';
+import { Notify, LoadScript, Mnemonic, Options, Wallet } from 'bch-wallet-kit';
 import 'bch-wallet-kit/dist/BchWalletKit.css';
 import './App.css';
 
@@ -53,6 +52,7 @@ const App = () => {
   return (
     <div className="app-container">
       <LoadScript scriptSrc="/minimal-slp-wallet.min.js" />
+      <Notify />
       <div className="app-title">BCH Wallet</div>
       {!walletConnected && (
        <>
@@ -61,7 +61,6 @@ const App = () => {
        </>
       )}
       <Wallet />
-      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 };

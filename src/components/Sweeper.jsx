@@ -1,15 +1,15 @@
 // src/components/Sweeper.js
 import { useState } from 'react';
-import { toast } from 'react-toastify';
-import { useAtom } from 'jotai';
+import { useAtom, useSetAtom } from 'jotai';
 import Sweep from 'bch-token-sweep';
-import { busyAtom, walletAtom, walletConnectedAtom } from '../atoms';
+import { notificationAtom, busyAtom, walletAtom, walletConnectedAtom } from '../atoms';
 import QrCodeScanner from './QrCodeScanner';
 
 const Sweeper = () => {
   const [wallet] = useAtom(walletAtom);
   const [walletConnected] = useAtom(walletConnectedAtom);
   const [busy, setBusy] = useAtom(busyAtom);
+  const setNotification = useSetAtom(notificationAtom);
   const [sweepKey, setSweepKey] = useState('');
   const [showScanner, setShowScanner] = useState(false);
 
@@ -22,7 +22,7 @@ const Sweeper = () => {
 
   const handleAddressDetected = (scannedData) => {
     if (!walletConnected) {
-      toast.error('Wallet is not connected.');
+      setNotification({ type: 'error', message: 'Wallet is not connected.' });
       return;
     }
 
@@ -38,17 +38,17 @@ const Sweeper = () => {
 
   const handleSweep = async () => {
     if (!walletConnected) {
-      toast.error('Wallet is not connected.');
+      setNotification({ type: 'error', message: 'Wallet is not connected.' });
       return;
     }
 
     if (!sweepKey.trim()) {
-      toast.error('Private key cannot be empty.');
+      setNotification({ type: 'error', message: 'Private key cannot be empty.' });
       return;
     }
 
     if (!validWIF(sweepKey)) {
-      toast.error('Private key is not valid.');
+      setNotification({ type: 'error', message: 'Private key is invalid.' });
       return;
     }
 
@@ -69,10 +69,11 @@ const Sweeper = () => {
       console.log(`explorer 1: ${explorerUrl}`);
       explorerUrl = `https://bch.loping.net/tx/${txid}`;
       console.log(`explorer 2: ${explorerUrl}`);
-      toast.success('Funds swept successfully!');
+      setNotification({ type: 'success', message: 'Funds swept successfully!' });
     } catch (error) {
       console.error('Error sweeping wallet:', error);
-      toast.error('Failed to sweep wallet. Please check the private key and try again.');
+      setNotification({ type: 'error', message: 'Failed to sweep wallet.' });
+
     } finally {
       setBusy(false);
       setSweepKey(''); // Reset private key field

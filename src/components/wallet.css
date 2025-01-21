@@ -58,3 +58,9 @@
   padding: 5px 10px;
   background-color: blue;
 }
+
+.small.connecting-info {
+  margin-top: 5px;
+  font-size: 12px;
+  color: #888;
+}
