@@ -1,0 +1,6 @@
+.send-tokens-container {
+  margin: 0 15px; /* 15px margins on left and right */
+  padding: 20px;
+  width: calc(100% - 30px); /* Full width minus left and right margins */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}

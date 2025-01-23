@@ -2,19 +2,24 @@ import { atom } from 'jotai';
 
 export const optionsAtom = atom({
   interface: 'consumer-api',
-  restURL: '',
+  restURL: 'https://free-bch.fullstack.cash',
   noUpdate: true,
 });
 export const mnemonicAtom = atom('');
 export const walletConnectedAtom = atom(false);
 // Atom to store the wallet instance
 export const walletAtom = atom(null);
+export const tokensAtom = atom([]);
 export const priceAtom = atom(0);
 export const balanceAtom = atom(0); // Default balance is 0 (in BCH)
-// Refresh trigger atom (no readable value)
+// Refresh trigger atoms
 export const balanceRefreshTriggerAtom = atom(null, (get, set) => {
-  set(balanceAtom, get(balanceAtom)); // Trigger a refresh
+  set(balanceAtom, get(balanceAtom));
 });
+export const tokensRefreshTriggerAtom = atom(null, (get, set) => {
+  set(tokensAtom, get(tokensAtom));
+});
+
 export const busyAtom = atom(false);
 export const notificationAtom = atom(null);
 

@@ -31,6 +31,7 @@ const useBalance = (refreshInterval = 10000) => {
       setSatsBalance(sats);
       const bchBalance = wallet.bchjs.BitcoinCash.toBitcoinCash(sats); // Convert to BCH
       setBalance(bchBalance); // Update atom with BCH balance
+      setError(null);
     } catch (error) {
       console.error('Failed to fetch balance:', error);
       setError(error.message || 'An error occurred');

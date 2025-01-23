@@ -19,7 +19,7 @@ export default {
       sourcemap: true,
     },
   ],
-  external: ['react', 'react-dom', 'jotai'], // Peer dependencies
+  external: ['react', 'react-dom', 'prop-types', 'jotai'], // Peer dependencies
 
   plugins: [
     resolve({

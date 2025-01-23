@@ -29,19 +29,10 @@ const Notify = ({ interval = 3000, silent = false }) => {
   const { type, message } = notification;
 
   const bannerStyle = {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    padding: '10px',
-    textAlign: 'center',
-    zIndex: 1000,
-    color: 'white',
-    fontWeight: 'bold',
     backgroundColor: type === 'success' ? 'green' : type === 'error' ? 'red' : 'orange',
   };
 
-  return <div style={bannerStyle}>{message}</div>;
+  return <div className="notify-text" style={bannerStyle}>{message}</div>;
 };
 
 Notify.propTypes = {

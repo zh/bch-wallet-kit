@@ -22,7 +22,7 @@ const useConnectWallet = () => {
     try {
       const SlpLibrary = window.SlpWallet; // Wallet initialization
       const bchWallet = new SlpLibrary(mnemonic, options);
-      await bchWallet.walletInfoPromise;
+      await bchWallet.initialize();
       setWallet(bchWallet);
       setWalletConnected(true);
       console.log('Wallet connected successfully!');

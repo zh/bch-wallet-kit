@@ -10,15 +10,13 @@ import {
   notificationAtom,
 } from '../atoms';
 import { useConnectWallet } from '../hooks';
-import {
-  Address,
-  SendBCH,
-  Balance,
-  Sweeper,
-  WalletDetails
-} from '../components';
+import Address from './Address';
+import Balance from './Balance';
+import SendBCH from './SendBCH';
+import Sweeper from './Sweeper';
+import WalletDetails from './WalletDetails';
 
-const Wallet = ({ showOptimize = false }) => {
+const Wallet = ({ showOptimize = false, showSLP = false }) => {
   const { connectWallet, disconnectWallet, walletConnected } = useConnectWallet();
   const [wallet] = useAtom(walletAtom); // Ensure walletAtom is used here
   const [,setBalance] = useAtom(balanceAtom);
@@ -76,8 +74,18 @@ const Wallet = ({ showOptimize = false }) => {
       {walletConnected ? (
         <>
           <div className="wallet-info">
-            <Address addressFormat="short" address={wallet?.walletInfo?.cashAddress} />
-            <Balance />
+            <div className="container address-container">
+              <fieldset className="form-group">
+                <legend>[ Receive ]</legend>
+                <Address addressFormat={'long'} showSLP={showSLP} />
+              </fieldset>
+            </div>
+            <div className="container balance-container">
+              <fieldset className="form-group">
+                <legend>[ Balance ]</legend>
+                <Balance />
+              </fieldset>
+            </div>
             <Sweeper />
             <SendBCH />
             <button
@@ -123,6 +131,7 @@ const Wallet = ({ showOptimize = false }) => {
 
 Wallet.propTypes = {
   showOptimize: PropTypes.bool, // Whether to display 'Optimize' button
+  showSLP: PropTypes.bool, // Whether to display SLP address
 };
 
 export default Wallet;

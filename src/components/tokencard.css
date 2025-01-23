@@ -1,0 +1,98 @@
+.token-card {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center;    /* Center align the entire card */
+  padding: 10px;
+  margin-top: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.token-card:hover {
+  transform: scale(1.05);
+}
+
+.token-icon {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 10px; /* Space between icon and details */
+}
+
+.token-details {
+  text-align: left; /* Left-align the text inside the details */
+  padding: 0 10px;  /* Add horizontal padding for spacing */
+  width: 100%;      /* Take full width of the container */
+  max-width: 300px; /* Optional: Limit the width for better layout */
+}
+
+/* Default to long format for PC browsers */
+.token-id-long {
+  display: block;
+}
+
+.token-id-short {
+  display: none;
+}
+
+.token-card.zoomed {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* Center the entire card horizontally */
+}
+
+.token-icon.zoomed-icon {
+  width: 128px;
+  height: 128px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.token-details.zoomed-details {
+  text-align: left; /* Left-align details */
+  width: 100%;      /* Use full width */
+  max-width: 400px; /* Optional: Limit width for better layout */
+  padding: 20px;    /* Add spacing around details */
+}
+
+/* Switch to short format for mobile devices */
+@media (max-width: 600px) {
+  .token-id-long {
+    display: none;
+  }
+
+  .token-id-short {
+    display: block;
+  }
+
+  .token-icon {
+    width: 32px;
+    height: 32px;
+    margin-top: 5px;
+    margin-bottom: 5px; /* Space between icon and details */
+  }
+
+  .token-icon.zoomed-icon {
+    width: 32px;
+    height: 32px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+  }
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: green;
+}
+
+.back-button:hover {
+  background-color: darkgreen;
+}
+

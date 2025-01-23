@@ -1,0 +1,14 @@
+.token-list-container {
+}
+
+.token-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.no-tokens {
+  margin-top: 10px;
+  color: gray;
+}
+
