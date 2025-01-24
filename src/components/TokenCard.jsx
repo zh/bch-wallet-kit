@@ -4,7 +4,7 @@ import { useAtom } from 'jotai';
 // import { useTokenData } from '../hooks';
 import { tokensAtom } from '../atoms';
 import Address from './Address';
-import SendToken from './SendTokens';
+import SendTokens from './SendTokens';
 
 const TokenCard = ({
   token,
