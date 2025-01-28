@@ -26,9 +26,12 @@ const Options = () => {
         <option value="" disabled>
           -- Select an option --
         </option>
-        <option value="https://free-bch.fullstack.cash">https://free-bch.fullstack.cash</option>
-        <option defaultValue="https://bch-consumer-anacortes-wa-usa.fullstackcash.nl">
-          https://bch-consumer-anacortes-wa-usa.fullstackcash.nl
+        <option defaultValue="https://free-bch.fullstack.cash">https://free-bch.fullstack.cash</option>
+        <option value="https://dev-consumer.psfoundation.info">
+          https://dev-consumer.psfoundation.info
+        </option>
+        <option value="https://cashstack.tokentiger.com">
+          https://cashstack.tokentiger.com
         </option>
       </select>
       </fieldset>

@@ -35,7 +35,7 @@ npm install minimal-slp-wallet bch-wallet-kit --save
 cp node_modules/minimal-slp-wallet/dist/minimal-slp-wallet.min.js public/
 ```
 
-Inside *examples/* directory you can just run `npm run script` for this task.
+Inside *examples/* directory you can just run `npm run script` for this task. This task is also automatically executed for all examples, when starting the development environment with `npm run dev`. 
 
 - Replace `src/App.jsx` with the following code:
 
