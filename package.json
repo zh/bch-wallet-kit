@@ -1,6 +1,6 @@
 {
   "name": "bch-wallet-kit",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "A React component library for BCH Wallets",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -16,12 +16,12 @@
   },
   "peerDependencies": {
     "@scure/bip39": "^1.5.4",
-    "@yudiel/react-qr-scanner": "^2.1.0",
     "bch-token-sweep": "^2.2.1",
     "jotai": "^2.11.0",
-    "qrcode.react": "^4.2.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "@yudiel/react-qr-scanner": "^2.3.1",
+    "qrcode.react": "^4.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
@@ -33,10 +33,11 @@
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.0",
     "@rollup/plugin-terser": "^0.4.4",
+    "@yudiel/react-qr-scanner": "^2.3.1",
     "jotai": "^2.11.0",
     "postcss": "^8.5.1",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "rollup": "^4.31.0",
     "rollup-plugin-postcss": "^4.0.2"
   },
